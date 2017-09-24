@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans     
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.inst.controller" />
+	
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/institutemanagement?zeroDateTimeBehavior=convertToNull
+			</value>
+		</property>
+
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+
+		<property name="username">
+			<value>root</value>
+		</property>
+
+		<property name="password">
+			<value>root</value>
+		</property>
+
+		<property name="initialSize">
+			<value>2</value>
+		</property>
+
+		<property name="maxActive">
+			<value>25</value>
+		</property>
+
+		<property name="maxIdle">
+			<value>5</value>
+		</property>
+	</bean>
+<import resource="spring-security.xml"/>
+	<!-- <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBuilder"> -->
+		<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.inst.beans.Attendance</value>
+				<value>com.inst.beans.Department</value>
+				<value>com.inst.beans.Faculty</value>
+				<value>com.inst.beans.Fees</value>
+				<value>com.inst.beans.Result</value>
+				<value>com.inst.beans.Student</value>
+				<value>com.inst.beans.Subject</value>
+				<value>com.inst.beans.Users</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="defaultAutoCommit">true</prop>
+				<prop key="query.substitutions">true 1,false 0</prop>
+				<prop key="hibernate.validator.autoregister_listeners">false</prop>
+				<prop key="hibernate.validator.apply_to_ddl">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="studentDAO" class="com.inst.service.StudentDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="departmentDAO" class="com.inst.service.DepartmentDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="facultyDAO" class="com.inst.service.FacultyDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="subjectDAO" class="com.inst.service.SubjectDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="resultDAO" class="com.inst.service.ResultDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="attendanceDAO" class="com.inst.service.AttendanceDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="studentController" class="com.inst.controller.StudentController">
+		<property name="studentDAO" ref="studentDAO"/>
+	</bean>
+	<bean id="feesController" class="com.inst.controller.FeesController">
+		<property name="studentDAO" ref="studentDAO"/>
+	</bean>
+	<bean id="utilitiesController" class="com.inst.util.UtilitiesController">
+		<property name="departmentDAO" ref="departmentDAO"/>	
+		<property name="subjectDAO" ref="subjectDAO"/>
+	</bean>
+	<bean id="facultyController" class="com.inst.controller.FacultyController">
+		<property name="facultyDAO" ref="facultyDAO"/>	
+	</bean>
+	<bean id="resultController" class="com.inst.controller.ResultController">
+		<property name="resultDAO" ref="resultDAO"/>	
+		<property name="studentDAO" ref="studentDAO"/>	
+	</bean>
+	<bean id="attendanceController" class="com.inst.controller.AttendanceController">
+		<property name="attendanceDAO" ref="attendanceDAO"/>
+		<property name="studentDAO" ref="studentDAO"/>
+	</bean>
+</beans>
