@@ -11,7 +11,7 @@
 	margin: 0; /* Ensures there is no space between sides of the screen and the menu */
 	z-index: 99; /* Makes sure that your menu remains on top of other page elements */
 	position: relative; 
-	background-color: #366b82;
+	background-color: #52b71f;
 }
 
 
@@ -33,7 +33,7 @@
 			font: normal bold 12px/1.2em Arial, Verdana, Helvetica;  
 			padding: 0;
 			margin: 0;
-			background-color: #366b82;
+			background-color: #52b71f;
 }
 
 
@@ -70,14 +70,14 @@
 
 
 .navbar li ul li a 	{
-		border-left: 1px solid #1f5065; 
-		border-right: 1px solid #1f5065; 
-		border-top: 1px solid #74a3b7; 
-		border-bottom: 1px solid #1f5065; 
+		border-left: 1px solid #5ab71f; 
+		border-right: 1px solid #5ab71f; 
+		border-top: 1px solid #82b71f; 
+		border-bottom: 1px solid #62b71f; 
 		}
 				
 .navbar li ul li a:hover {
-	background-color: #366b82;
+	background-color: #52b71f;
 }
 		
 
@@ -136,7 +136,7 @@ font-weight: bold;
 	padding: 1%;
 	color: white;
 	cursor: pointer;
-	background-color: #1f5065;
+	background-color: #52b71f;
 	position: fixed;
 	bottom: 0px;
 }

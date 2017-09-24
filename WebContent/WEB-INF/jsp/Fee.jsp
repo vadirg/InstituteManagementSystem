@@ -47,28 +47,28 @@
 		$("#noRecord").hide();
 		var flg = true;
 		if ($("#studentId").val() == "") {
-			$("#studentId").css("backgrond", "red");
+			$("#studentId").css("background", "red");
 			flg = false;
 		} else {
-			$("#studentId").css("backgrond", "red");
+			$("#studentId").css("background", "red");
 		}
 		if ($("#academicYear").val() == "") {
-			$("#academicYear").css("backgrond", "red");
+			$("#academicYear").css("background", "red");
 			flg = false;
 		} else {
-			$("#academicYear").css("backgrond", "white");
+			$("#academicYear").css("background", "white");
 		}
 		if ($("#date").val() == "MM/DD/YYYY" ||$("#date").val() == "") {
-			$("#date").css("backgrond", "red");
+			$("#date").css("background", "red");
 			flg = false;
 		} else {
-			$("#date").css("backgrond", "white");
+			$("#date").css("background", "white");
 		}
 		if ($("#amt").val() == "") {
-			$("#amt").css("backgrond", "red");
+			$("#amt").css("background", "red");
 			flg = false;
 		} else {
-			$("#amt").css("backgrond", "white");
+			$("#amt").css("background", "white");
 		}
 
 		if (flg) {
